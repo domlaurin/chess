@@ -25,6 +25,7 @@ class Display
             @cursor.get_input
 
             puts ""
+            # print @cursor.cursor_pos
         end
     end
 
