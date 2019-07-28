@@ -15,20 +15,20 @@ class Piece
         @board[a][b] == nil
     end
 
-    def move_into_check?(end_pos)
-        new_board = @board_class_instance.dup
+    # def move_into_check?(end_pos)
+    #     # new_board = @board_class_instance.dup
         
-        new_board.move_piece!(@pos, end_pos) #new_board is a 2d arr here
-        new_board.in_check?(@color)        
-    end
+    #     # new_board.move_piece!(@pos, end_pos) #new_board is a 2d arr here
+    #     # new_board.in_check?(@color)        
+    # end
 
     def valid_moves 
         good_moves = []
-        debugger
+        # #debugger
 
         possible_moves = self.moves
         possible_moves.each do |move|
-            @board_class_instance.move_piece(@pos, move)
+            @board_class_instance.move_piece!(@pos, move)
 
             if @board_class_instance.in_check?(@color)
                 @board_class_instance.undo(move, @pos)

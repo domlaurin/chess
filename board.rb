@@ -9,7 +9,7 @@ require_relative 'pawn.rb'
 require_relative 'display.rb'
 
 
-class Board 
+class Board
 
     attr_accessor :board
     def initialize
@@ -58,14 +58,13 @@ class Board
         x,y = end_pos
         # debugger
 
-        raise ArgumentError.new "no piece at starting position :)" if self.board[a][b] == nil
-        raise ArgumentError.new "this move would leave you in check :)" if @board[a][b].move_into_check?(end_pos)
-        raise ArgumentError.new "not a valid move :)" if !@board[a][b].valid_moves.include?(end_pos)
+        return "no piece at starting position :)" if self.board[a][b] == nil
+        # return "this move would leave you in check :)" if @board[a][b].move_into_check?(end_pos)
+        return "not a valid move :)" if !@board[a][b].valid_moves.include?(end_pos)
        
-        
         self.board[x][y], self.board[a][b] = self.board[a][b], NullPiece.new
         self.board[x][y].pos = end_pos
-        "done"
+        Display.new(@board).render
     end
 
     def move_piece!(start_pos, end_pos)
