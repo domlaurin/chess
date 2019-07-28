@@ -11,7 +11,7 @@ class Display
     end
 
     def render
-        100.times do
+        1.times do
             @board.each_with_index do |row, i| 
                 array = row.map.with_index do |piece, i2|
                     if [i, i2] == @cursor.cursor_pos
@@ -25,7 +25,6 @@ class Display
             @cursor.get_input
 
             puts ""
-            # print @cursor.cursor_pos
         end
     end
 

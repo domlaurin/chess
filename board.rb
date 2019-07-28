@@ -21,22 +21,6 @@ class Board
     def inspect
         {}.inspect
     end
-
-    def dup
-        board_clone = @board.dup.map do |row|
-            row.dup.map do |piece|
-                piece.dup
-            end
-        end
-
-        board_clone.each do |row|
-            row.each do |piece|
-                piece.board = @board_clone
-            end
-        end
-
-        board_clone
-    end
     
     def find_king_pos(color)
       @board.each_with_index do |row, i|
@@ -59,6 +43,14 @@ class Board
 
     def checkmate?(color)
         self.in_check?(color) && self.valid_moves.length == 0
+    end
+
+    def undo(start_pos, end_pos)
+        a,b = start_pos
+        x,y = end_pos
+
+        self.board[x][y], self.board[a][b] = self.board[a][b], NullPiece.new
+        self.board[x][y].pos = end_pos
     end
 
     def move_piece(start_pos, end_pos)
