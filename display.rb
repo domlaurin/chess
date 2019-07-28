@@ -11,31 +11,21 @@ class Display
     end
 
     def render
-        @board.each_with_index do |row, i| 
-            array = row.map.with_index do |piece, i2|
-                if [i, i2] == @cursor.cursor_pos
-                    "#{piece.symbol}".colorize(:red)
-                else
-                    piece.symbol
+        100.times do
+            @board.each_with_index do |row, i| 
+                array = row.map.with_index do |piece, i2|
+                    if [i, i2] == @cursor.cursor_pos
+                        "#{piece.symbol}".colorize(:red)
+                    else
+                        piece.symbol
+                    end
                 end
+                puts array.join(" ")
             end
-            puts array.join(" ")
-        end
-        # @cursor.get_input
+            @cursor.get_input
 
-        # puts ""
-        
-        # @board.each_with_index do |row, i| 
-        #     array = row.map.with_index do |piece, i2|
-        #         if [i, i2] == @cursor.cursor_pos
-        #             "#{piece.symbol}".colorize(:red)
-        #         else
-        #             piece.symbol
-        #         end
-        #     end
-        #     puts array.join(" ")
-        # end
-        nil
+            puts ""
+        end
     end
 
 end
