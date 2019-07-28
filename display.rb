@@ -22,12 +22,10 @@ class Display
                 end
                 puts array.join(" ")
             end
-            @cursor.get_input
+            # @cursor.get_input
 
             puts ""
         end
     end
 
 end
-
-

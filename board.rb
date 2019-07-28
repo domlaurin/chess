@@ -58,9 +58,15 @@ class Board
         x,y = end_pos
         # debugger
 
-        return "no piece at starting position :)" if self.board[a][b] == nil
+        if self.board[a][b].symbol == :n
+            return "no piece at starting position :)" 
+        end
+
         # return "this move would leave you in check :)" if @board[a][b].move_into_check?(end_pos)
-        return "not a valid move :)" if !@board[a][b].valid_moves.include?(end_pos)
+
+        if @board[a][b].valid_moves.include?(end_pos) == false
+            return "not a valid move :)" 
+        end
        
         self.board[x][y], self.board[a][b] = self.board[a][b], NullPiece.new
         self.board[x][y].pos = end_pos
@@ -76,6 +82,11 @@ class Board
     end
     
     def populate
+        Board class instance
+        b = Board.new
+        b.populate 
+        @board #2d array
+
         @board[0][0] = Rook.new(:w, self, [0, 0])
         @board[0][1] = Knight.new(:w, self, [0, 1])
         @board[0][2] = Bishop.new(:w, self, [0, 2])
@@ -103,3 +114,5 @@ class Board
     end
 
 end
+
+# how does line 89 have a reference to the complete board if it hasn't' finished populating it yet?
