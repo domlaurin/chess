@@ -12,6 +12,10 @@ class Pawn < Piece
 
     def moves
         new_arr = []
+
+        return [] if self.color == :w && self.pos[0] == 7
+        return [] if self.color == :b && self.pos[0] == 0
+
         new_arr.concat(self.forward_steps) if self.forward_steps != nil
         new_arr.concat(self.side_attacks) if self.side_attacks != nil
 
@@ -27,6 +31,7 @@ class Pawn < Piece
         if self.color == :b
             return true if self.pos[0] == 6
         end
+        false
     end
 
     def forward_dir
@@ -74,14 +79,14 @@ class Pawn < Piece
                 new_array << self.board[self.pos[0] + 1][self.pos[1] + 1].pos
             end
             if self.board[self.pos[0] + 1][self.pos[1] - 1].color != nil && self.board[self.pos[0] + 1][self.pos[1] - 1].color == :b
-                new_array << self.board[self.pos[0] + 1][self.pos[1] - 1].pos
+                new_array << self.board[self.pos[0] + 1][self.pos[1] - 1].pos unless self.pos[1] - 1 == -1
             end
         elsif self.color == :b
             if self.board[self.pos[0] - 1][self.pos[1] + 1] != nil && self.board[self.pos[0] - 1][self.pos[1] + 1].color == :w
-                new_array << self.board[self.pos[0] - 1][self.pos[1] + 1].pos
+                new_array << self.board[self.pos[0] - 1][self.pos[1] + 1].pos unless self.pos[0] - 1 == -1
             end
             if self.board[self.pos[0] - 1][self.pos[1] - 1] != nil && self.board[self.pos[0] - 1][self.pos[1] - 1].color == :w 
-                new_array << self.board[self.pos[0] - 1][self.pos[1] - 1].pos
+                new_array << self.board[self.pos[0] - 1][self.pos[1] - 1].pos unless self.pos[1] - 1 == -1 || self.pos[0] - 1 == -1
             end
         end
 
