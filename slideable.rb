@@ -11,8 +11,6 @@ module Slideable
     self.move_dirs.each do |arr|
       clone_pos = self.pos.dup
 
-      # debugger if self.board[clone_pos[0] + arr[0]][clone_pos[1] + arr[1]] == nil
-
       if (clone_pos[0] + arr[0]).between?(0,7) && 
         (clone_pos[1] + arr[1]).between?(0,7)
         future_color = self.board[clone_pos[0] + arr[0]][clone_pos[1] + arr[1]].color

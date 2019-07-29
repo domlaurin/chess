@@ -15,7 +15,6 @@ class Board
     def initialize
         @board = Array.new(8){Array.new(8)}
         self.populate
-        # debugger
         @render = Display.new(self).render
     end
 
@@ -32,11 +31,9 @@ class Board
     end
 
     def in_check?(color)
-        # debugger if color == :b
         all_moves = []
         @board.each_with_index do |row, i|
             row.each_with_index do |piece, i2| 
-                # debugger if piece.symbol == :B && all_moves == [[2,2], [1,3], [2,0]]
                 if piece.color != color && piece.symbol != :n
                     all_moves.concat(piece.moves) 
                 end
