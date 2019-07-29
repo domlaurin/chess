@@ -7,6 +7,8 @@ module Slideable
   def moves
 
     moves = []
+
+    debugger if self.pos == [1,4] && self.symbol == "\u2659".encode('utf-8')
     
     self.move_dirs.each do |arr|
       clone_pos = self.pos.dup

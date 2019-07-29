@@ -22,8 +22,6 @@ class Pawn < Piece
         new_arr
     end
 
-    # private 
-
     def at_start_row?
         if self.color == :w
             return true if self.pos[0] == 1

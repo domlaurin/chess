@@ -11,6 +11,7 @@ class Game
     end
 
     def play
+        # debugger
         until @board.checkmate?(:w) || @board.checkmate?(:b)
             @current_player.make_move
             self.swap_turn!

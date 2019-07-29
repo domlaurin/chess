@@ -69,10 +69,13 @@ class Board
         a,b = start_pos
         x,y = end_pos
 
+        debugger if @board[x][y].pos == [1,4] && @board[x][y].symbol == "\u2659".encode('utf-8')
+
         if self.board[a][b].symbol == "."
             return "no piece at starting position :)" 
         end
 
+        
         if @board[a][b].valid_moves.include?(end_pos) == false
             return "not a valid move :)" 
         end
