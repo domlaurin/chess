@@ -6,7 +6,11 @@ class Bishop < Piece
     include Slideable
 
     def symbol
-       :B 
+      if color == :w
+        "\u2657".encode('utf-8')
+      else
+        "#{"\u265D".force_encoding('utf-8')}"
+      end
     end
 
     def move_dirs

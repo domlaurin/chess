@@ -80,8 +80,27 @@ class Board
         self.board[x][y], self.board[a][b] = self.board[a][b], NullPiece.new
         self.board[x][y].pos = end_pos
     end
-    
+
     def populate
+
+        # checkmark = "\u2713"
+        # puts checkmark.force_encoding('utf-8')
+        # " #{"\u265D".encode('utf-8')} " 
+
+        # white chess king	♔	u2654
+        # white chess queen	♕	u2655
+        # white chess rook	♖	u2656
+        # white chess bishop	♗	u2657
+        # white chess knight	♘	u2658
+        # white chess pawn	♙	u2659
+
+        # black chess king	♚	u265A
+        # black chess queen	♛	u265B
+        # black chess rook	♜	u265C
+        # black chess bishop	♝	u265D
+        # black chess knight	♞	u265E
+        # black chess pawn	♟	u265F
+
 
         @board[0][0] = Rook.new(:w, self, [0, 0])
         @board[0][1] = Knight.new(:w, self, [0, 1])
@@ -112,3 +131,5 @@ class Board
 end
 
 # how does line 89 have a reference to the complete board if it hasn't' finished populating it yet?
+
+#how to use singleton in NullPiece

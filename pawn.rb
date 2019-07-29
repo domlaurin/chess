@@ -3,7 +3,11 @@ require 'byebug'
 class Pawn < Piece
 
     def symbol
-        :P
+        if color == :w
+            "\u2659".encode('utf-8')
+        else
+            "#{"\u265F".force_encoding('utf-8')}"
+        end 
     end
 
     def moves

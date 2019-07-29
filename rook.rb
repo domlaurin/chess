@@ -6,7 +6,11 @@ class Rook < Piece
     include Slideable
 
     def symbol
-       :R 
+        if color == :w
+            "\u2656".encode('utf-8')
+        else
+            "#{"\u265C".force_encoding('utf-8')}"
+        end 
     end
 
     def move_dirs

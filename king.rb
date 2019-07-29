@@ -6,7 +6,13 @@ class King < Piece
     include Stepable
 
     def symbol
-       :K
+        if color == :w
+            "\u2654".encode('utf-8')
+        else
+            "#{"\u265F".force_encoding('utf-8')}"
+        end 
     end
 
 end
+
+

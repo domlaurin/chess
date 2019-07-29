@@ -6,7 +6,11 @@ class Queen < Piece
     include Slideable
 
     def symbol
-       :Q 
+        if color == :w
+            "\u2655".encode('utf-8')
+        else
+            "#{"\u265B".force_encoding('utf-8')}"
+        end 
     end
 
     def move_dirs
