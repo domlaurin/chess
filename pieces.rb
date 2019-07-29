@@ -18,7 +18,6 @@ class Piece
     def valid_moves 
         good_moves = []
 
-        debugger
         possible_moves = self.moves
         possible_moves.each do |move|
             pos_clone = @pos.dup

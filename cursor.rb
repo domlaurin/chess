@@ -40,6 +40,7 @@ class Cursor
   end
 
   def get_input
+    # @board.render
     key = KEYMAP[read_char]
     handle_key(key)
   end
@@ -87,9 +88,10 @@ class Cursor
     case key
     when :space, :return
         puts ""
-        print @cursor_pos
+        return @cursor_pos
     when :left, :right, :up, :down 
         update_pos(MOVES[key])
+        nil
     when :ctrl_c
         Process.exit(0)
     end

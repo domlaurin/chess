@@ -1,6 +1,6 @@
+require_relative 'NullPiece.rb'
 require_relative 'pieces.rb'
 require_relative 'rook.rb'
-require_relative 'NullPiece.rb'
 require_relative 'bishop.rb'
 require_relative 'queen.rb'
 require_relative 'knight.rb'
@@ -11,15 +11,16 @@ require_relative 'display.rb'
 
 class Board
 
-    attr_accessor :board
+    attr_accessor :board, :render
     def initialize
         @board = Array.new(8){Array.new(8)}
         self.populate
-        Display.new(@board).render
+        # debugger
+        @render = Display.new(self).render
     end
 
     def inspect
-        {}.inspect
+        {"i" => "i"}.inspect
     end
     
     def find_king_pos(color)
@@ -34,7 +35,10 @@ class Board
         all_moves = []
         @board.each_with_index do |row, i|
             row.each_with_index do |piece, i2|
-            all_moves.concat(piece.moves) if piece.color != color && piece.symbol != :n
+                # debugger if piece.symbol == :n
+                if piece.color != color && piece.symbol != :n
+                    all_moves.concat(piece.moves) 
+                end
             end
         end
         king_pos = self.find_king_pos(color)
@@ -56,13 +60,10 @@ class Board
     def move_piece(start_pos, end_pos)
         a,b = start_pos
         x,y = end_pos
-        # debugger
 
         if self.board[a][b].symbol == :n
             return "no piece at starting position :)" 
         end
-
-        # return "this move would leave you in check :)" if @board[a][b].move_into_check?(end_pos)
 
         if @board[a][b].valid_moves.include?(end_pos) == false
             return "not a valid move :)" 
@@ -70,7 +71,7 @@ class Board
        
         self.board[x][y], self.board[a][b] = self.board[a][b], NullPiece.new
         self.board[x][y].pos = end_pos
-        Display.new(@board).render
+        Display.new(self).render
     end
 
     def move_piece!(start_pos, end_pos)
@@ -82,10 +83,6 @@ class Board
     end
     
     def populate
-        Board class instance
-        b = Board.new
-        b.populate 
-        @board #2d array
 
         @board[0][0] = Rook.new(:w, self, [0, 0])
         @board[0][1] = Knight.new(:w, self, [0, 1])
