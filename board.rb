@@ -25,7 +25,8 @@ class Board
     def find_king_pos(color)
       @board.each_with_index do |row, i|
         row.each_with_index do |piece, i2|
-          return [i, i2] if piece.symbol == :K && piece.color == color
+          return [i, i2] if piece.symbol == "#{"\u265A".force_encoding('utf-8')}"&& piece.color == :b
+          return [i, i2] if piece.symbol == "\u2654".encode('utf-8') && piece.color == :w
         end
       end
     end
@@ -34,12 +35,13 @@ class Board
         all_moves = []
         @board.each_with_index do |row, i|
             row.each_with_index do |piece, i2| 
-                if piece.color != color && piece.symbol != :n
+                if piece.color != color && piece.symbol != "."
                     all_moves.concat(piece.moves) 
                 end
             end
         end
         king_pos = self.find_king_pos(color)
+        debugger if king_pos == [3,4]
         all_moves.include?(king_pos)
     end
 
@@ -52,7 +54,14 @@ class Board
         a,b = start_pos
         x,y = end_pos
 
-        self.board[x][y], self.board[a][b] = self.board[a][b], NullPiece.new
+        # if self.board[x][y].symbol != "."
+        #     killed_piece = self.board[x][y].dup
+
+        #     self.board[x][y], self.board[a][b] = self.board[a][b], killed_piece
+        #     self.board[x][y].pos = end_pos
+        # end
+
+        self.board[x][y], self.board[a][b] = self.board[a][b], NullPiece.new 
         self.board[x][y].pos = end_pos
     end
 
@@ -60,7 +69,7 @@ class Board
         a,b = start_pos
         x,y = end_pos
 
-        if self.board[a][b].symbol == :n
+        if self.board[a][b].symbol == "."
             return "no piece at starting position :)" 
         end
 
@@ -82,25 +91,6 @@ class Board
     end
 
     def populate
-
-        # checkmark = "\u2713"
-        # puts checkmark.force_encoding('utf-8')
-        # " #{"\u265D".encode('utf-8')} " 
-
-        # white chess king	♔	u2654
-        # white chess queen	♕	u2655
-        # white chess rook	♖	u2656
-        # white chess bishop	♗	u2657
-        # white chess knight	♘	u2658
-        # white chess pawn	♙	u2659
-
-        # black chess king	♚	u265A
-        # black chess queen	♛	u265B
-        # black chess rook	♜	u265C
-        # black chess bishop	♝	u265D
-        # black chess knight	♞	u265E
-        # black chess pawn	♟	u265F
-
 
         @board[0][0] = Rook.new(:w, self, [0, 0])
         @board[0][1] = Knight.new(:w, self, [0, 1])
@@ -130,6 +120,9 @@ class Board
 
 end
 
-# how does line 89 have a reference to the complete board if it hasn't' finished populating it yet?
-
-#how to use singleton in NullPiece
+=begin
+Questions:
+how does line 89 have a reference to the complete board if it hasn't' finished populating it yet?
+how to use singleton in NullPiece
+dup'ing the board
+=end

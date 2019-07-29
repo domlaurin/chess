@@ -89,3 +89,8 @@ class Pawn < Piece
     end
 
 end
+
+
+# automatically deletes all pieces at the places that the opposite color piece can go to
+# prob undo method that doesn't' recreate a piece after the piece takes it
+# doesn't' let do 2nd move with pawn
