@@ -32,10 +32,11 @@ class Board
     end
 
     def in_check?(color)
+        # debugger if color == :b
         all_moves = []
         @board.each_with_index do |row, i|
-            row.each_with_index do |piece, i2|
-                # debugger if piece.symbol == :n
+            row.each_with_index do |piece, i2| 
+                # debugger if piece.symbol == :B && all_moves == [[2,2], [1,3], [2,0]]
                 if piece.color != color && piece.symbol != :n
                     all_moves.concat(piece.moves) 
                 end
@@ -46,7 +47,8 @@ class Board
     end
 
     def checkmate?(color)
-        self.in_check?(color) && self.valid_moves.length == 0
+        self.in_check?(color) && 
+        self.valid_moves.length == 0
     end
 
     def undo(start_pos, end_pos)
