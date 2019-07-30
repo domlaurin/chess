@@ -25,8 +25,8 @@ class Board
     def find_king_pos(color)
       @board.each_with_index do |row, i|
         row.each_with_index do |piece, i2|
-          return [i, i2] if piece.symbol == "#{"\u265A".force_encoding('utf-8')}"&& piece.color == :b
-          return [i, i2] if piece.symbol == "\u2654".encode('utf-8') && piece.color == :w
+          return [i, i2] if piece.symbol == "#{"\u265A".encode('utf-8')}" && piece.color == color
+          return [i, i2] if piece.symbol == "\u2654".encode('utf-8') && piece.color == color
         end
       end
     end
@@ -34,50 +34,59 @@ class Board
     def in_check?(color)
         all_moves = []
         @board.each_with_index do |row, i|
-            row.each_with_index do |piece, i2| 
+            row.each_with_index do |piece, i2|
                 if piece.color != color && piece.symbol != "."
                     all_moves.concat(piece.moves) 
                 end
             end
         end
         king_pos = self.find_king_pos(color)
-        debugger if king_pos == [3,4]
+        
         all_moves.include?(king_pos)
     end
 
     def checkmate?(color)
-        self.in_check?(color) && 
-        self.valid_moves.length == 0
+        # debugger if self.board[4][7].symbol == "\u2655".encode('utf-8')
+        # debugger if self.in_check?(color)
+
+        no_valid_moves = (@board.all? do |row|
+            row.all? do |piece|
+                if piece.color == color
+                    piece.valid_moves.length == 0
+                else
+                    true
+                end
+            end
+        end)
+
+        self.in_check?(color) && no_valid_moves == true
     end
 
     def undo(start_pos, end_pos)
         a,b = start_pos
         x,y = end_pos
 
-        # if self.board[x][y].symbol != "."
-        #     killed_piece = self.board[x][y].dup
-
-        #     self.board[x][y], self.board[a][b] = self.board[a][b], killed_piece
-        #     self.board[x][y].pos = end_pos
-        # end
-
         self.board[x][y], self.board[a][b] = self.board[a][b], NullPiece.new 
         self.board[x][y].pos = end_pos
     end
 
-    def move_piece(start_pos, end_pos)
+    def move_piece(color, start_pos, end_pos)
         a,b = start_pos
         x,y = end_pos
 
-        # debugger if @board[x][y].pos == [1,4] && @board[x][y].symbol == "\u2659".encode('utf-8')
-
-        if self.board[a][b].symbol == "."
-            return "no piece at starting position :)" 
+        if color != @board[a][b].color
+            puts "choose your own piece hehe"
+            return "a"
         end
 
-        
+        if @board[a][b].symbol == "."
+            puts "no piece at starting position :)" 
+            return "a"
+        end
+
         if @board[a][b].valid_moves.include?(end_pos) == false
-            return "not a valid move :)" 
+            puts "not a valid move :)" 
+            return "a"
         end
        
         self.board[x][y], self.board[a][b] = self.board[a][b], NullPiece.new

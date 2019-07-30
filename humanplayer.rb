@@ -22,7 +22,7 @@ class HumanPlayer < Player
         end
         end_pos = move.dup
 
-        @display.board.move_piece(start_pos, end_pos)
+        @display.board.move_piece(self.color, start_pos, end_pos)
     end
 end
 

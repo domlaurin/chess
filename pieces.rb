@@ -18,7 +18,10 @@ class Piece
     def valid_moves 
         good_moves = []
 
-        debugger if self.symbol == "#{"\u265D".force_encoding('utf-8')}"
+        # debugger if self.symbol == "#{"\u265D".force_encoding('utf-8')}"
+        
+        return :[] if self.symbol == "."
+
         possible_moves = self.moves
         possible_moves.each do |move|
             pos_clone = @pos.dup

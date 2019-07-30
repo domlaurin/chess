@@ -13,9 +13,12 @@ class Game
     def play
         # debugger
         until @board.checkmate?(:w) || @board.checkmate?(:b)
-            @current_player.make_move
+            if @current_player.make_move == "a"
+                next
+            end
             self.swap_turn!
         end
+        "#{@current_player} won with a checkmate!"
     end
 
     def notify_players
@@ -30,3 +33,12 @@ class Game
     end
 
 end
+
+=begin
+
+
+checkmate
+pressing on empty squares raises error
+only allow the current player to move his own pieces
+
+=end
